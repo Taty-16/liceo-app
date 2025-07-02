@@ -10,29 +10,76 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <style>
       body {
-        text-align: center;
         font-family: sans-serif;
-        margin-top: 100px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        background-color: #f8f8f8;
       }
 
-      .btn {
-        padding: 10px 20px;
-        background-color: #0077cc;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        text-decoration: none;
-        font-size: 16px;
+      h1 {
+        font-size: 20px;
+        margin: 20px 0 10px 0;
       }
-      
-      .btn:hover {
-        background-color: #005fa3;
+
+      .menu-bar {
+        display: flex;
+        justify-content: center;
+        background-color: #0077cc;
+        padding: 10px 0;
+        gap: 20px;
+      }
+
+      .menu-bar a {
+        color: white;
+        text-decoration: none;
+        padding: 8px 12px;
+        font-weight: bold;
+      }
+
+      .submenu {
+        display: none;
+        flex-direction: column;
+        background-color: #e6f0ff;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 5px;
+        padding: 10px 0;
+        border-radius: 5px;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+      }
+
+      .submenu a {
+        color: #0077cc;
+        padding: 8px 12px;
+        text-decoration: none;
+      }
+
+      .menu-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .menu-container:hover .submenu {
+        display: flex;
       }
     </style>
   </head>
   <body>
     <h1>Liceo Cristiano Lic. Joaquín Edgardo Gacía Lemus</h1>
 
-    <a href="calendario.html" class="btn">Ver Calendario</a>
+    <div class="menu-bar">
+      <div class="menu-container">
+        <a href="#">Inicio ▼</a>
+        <div class="submenu">
+          <a href="liceo.html">Liceo</a>
+          <a href="deportes.html">Deportes</a>
+          <a href="anuncios.html">Anuncios</a>
+        </div>
+      </div>
+      <a href="vision.html">Visión</a>
+      <a href="mision.html">Misión</a>
+    </div>
   </body>
 </html>
