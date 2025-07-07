@@ -77,6 +77,22 @@
     .contenido {
       padding: 40px 20px;
     }
+
+    .galeria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.galeria img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
   </style>
 </head>
 <body>
@@ -96,10 +112,12 @@
   </div>
 
   <div class="contenido">
-    <h2>Acerca del Liceo</h2>
-    <p>
-      Esta sección contiene información general sobre el liceo: historia, valores institucionales y objetivos educativos.
-    </p>
+    <h2>Fotos del Liceo</h2>
+    <div class="galeria">
+  <img src="liceo1.jpg" alt="Liceo 1" />
+  <img src="liceo2.jpg" alt="Liceo 2" />
+  <img src="liceo3.jpg" alt="Liceo 3" />
+</div>
   </div>
 
   <script>
