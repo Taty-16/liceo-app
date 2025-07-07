@@ -71,17 +71,82 @@
     .submenu a:last-child {
       border-bottom: none;
     }
+
+    /* Estilos del aviso emergente */
+    .aviso {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 400px;
+      background: white;
+      border: 2px solid #0077cc;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      z-index: 999;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .aviso h2 {
+      margin-top: 0;
+      color: #0077cc;
+    }
+
+    .aviso .importante {
+      color: red;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .aviso button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <h1>Liceo Cristiano Lic. Joaquín Edgardo Gacía Lemus</h1>
 
+  <!-- Cuadro de aviso dentro de la página -->
+  <div style="
+    max-width: 500px;
+    margin: 0 auto 20px auto;
+    background-color: #ffffff;
+    border: 2px solid #0077cc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  ">
+    <div style="color: red; font-weight: bold; font-size: 18px; margin-bottom: 10px;">
+      ¡Aviso importante!
+    </div>
+    <p style="margin: 0;">
+      El día jueves 10 de Julio, se llevarán a cabo los partidos correspondientes de:
+    </p>
+    <ul style="list-style: none; padding-left: 0; margin-top: 10px; text-align: left;">
+      <li>– Tercer ciclo</li>
+      <li>– Educación media</li>
+    </ul>
+    <p>Tomar en cuenta.</p>
+  </div>
+
+  <!-- Menú horizontal -->
   <div class="menu-bar">
     <div onclick="toggleSubmenu()">Inicio ▼</div>
     <a href="vision.html">Visión</a>
     <a href="mision.html">Misión</a>
   </div>
 
+  <!-- Submenú -->
   <div id="submenu" class="submenu">
     <a href="liceo.html">Liceo</a>
     <a href="deportes.html">Deportes</a>
@@ -94,6 +159,15 @@
     function toggleSubmenu() {
       submenuVisible = !submenuVisible;
       document.getElementById("submenu").style.display = submenuVisible ? "flex" : "none";
+    }
+
+    // Mostrar aviso automáticamente
+    window.onload = function () {
+      document.getElementById("aviso").style.display = "block";
+    };
+
+    function cerrarAviso() {
+      document.getElementById("aviso").style.display = "none";
     }
   </script>
 </body>
