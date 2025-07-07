@@ -48,17 +48,23 @@
       border-right: none;
     }
 
-    .submenu {
-      display: none;
-      flex-direction: column;
-      background-color: #e6f0ff;
-      margin: 0 auto;
-      max-width: 200px;
-      border: 1px solid #0077cc;
-      border-radius: 5px;
-      margin-top: 10px;
-      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
-    }
+.submenu {
+  display: none;
+  flex-direction: column;
+  background-color: #e6f0ff;
+  position: absolute;
+  top: 90px; /* ajusta si es necesario */
+  left: 10px; /* ajusta para que aparezca justo debajo de "Inicio" */
+  z-index: 1000;
+  width: 200px;
+  border: 1px solid #0077cc;
+  border-radius: 5px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.menu-container {
+  position: relative;
+}
 
     .submenu a {
       padding: 15px;
@@ -115,10 +121,24 @@
 <body>
   <h1>Liceo Cristiano Lic. Joaquín Edgardo Gacía Lemus</h1>
 
-  <!-- Cuadro de aviso dentro de la página -->
+  <!-- Menú horizontal -->
+<div class="menu-bar">
+  <div class="menu-container">
+    <div onclick="toggleSubmenu()">Inicio ▼</div>
+    <div id="submenu" class="submenu">
+      <a href="liceo.html">Liceo</a>
+      <a href="deportes.html">Deportes</a>
+      <a href="anuncios.html">Anuncios</a>
+    </div>
+  </div>
+  <a href="vision.html">Visión</a>
+  <a href="mision.html">Misión</a>
+</div>
+
+  <!-- Cuadro de aviso debajo del menú -->
   <div style="
     max-width: 500px;
-    margin: 0 auto 20px auto;
+    margin: 20px auto;
     background-color: #ffffff;
     border: 2px solid #0077cc;
     padding: 20px;
@@ -139,14 +159,7 @@
     <p>Tomar en cuenta.</p>
   </div>
 
-  <!-- Menú horizontal -->
-  <div class="menu-bar">
-    <div onclick="toggleSubmenu()">Inicio ▼</div>
-    <a href="vision.html">Visión</a>
-    <a href="mision.html">Misión</a>
-  </div>
-
-  <!-- Submenú -->
+  <!-- Submenú de Inicio -->
   <div id="submenu" class="submenu">
     <a href="liceo.html">Liceo</a>
     <a href="deportes.html">Deportes</a>
