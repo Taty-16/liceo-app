@@ -24,47 +24,43 @@
 
     .menu-bar {
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       background-color: #0077cc;
       padding: 10px 0;
       border-top: 2px solid #005fa3;
       border-bottom: 2px solid #005fa3;
     }
 
-    .menu-bar > div,
-    .menu-bar > a {
-      flex: 1;
-      text-align: center;
+    .menu-button {
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      padding: 0 15px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .menu-bar a {
       color: white;
       text-decoration: none;
-      padding: 10px 0;
-      border-right: 1px solid #005fa3;
+      padding: 10px 20px;
       font-weight: bold;
-      cursor: pointer;
+      border-left: 1px solid #005fa3;
     }
 
-    .menu-bar > div:last-child,
-    .menu-bar > a:last-child {
-      border-right: none;
+    .submenu {
+      display: none;
+      flex-direction: column;
+      background-color: #e6f0ff;
+      position: absolute;
+      top: 90px;
+      left: 10px;
+      z-index: 1000;
+      width: 200px;
+      border: 1px solid #0077cc;
+      border-radius: 5px;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
     }
-
-.submenu {
-  display: none;
-  flex-direction: column;
-  background-color: #e6f0ff;
-  position: absolute;
-  top: 90px; /* ajusta si es necesario */
-  left: 10px; /* ajusta para que aparezca justo debajo de "Inicio" */
-  z-index: 1000;
-  width: 200px;
-  border: 1px solid #0077cc;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-.menu-container {
-  position: relative;
-}
 
     .submenu a {
       padding: 15px;
@@ -78,92 +74,66 @@
       border-bottom: none;
     }
 
-    /* Estilos del aviso emergente */
-    .aviso {
-      position: fixed;
-      top: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 400px;
-      background: white;
-      border: 2px solid #0077cc;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      padding: 20px;
-      z-index: 999;
-      border-radius: 10px;
-      display: none;
+    .contenido {
+      padding: 40px 20px;
     }
 
-    .aviso h2 {
-      margin-top: 0;
-      color: #0077cc;
+    /* Cuadro de aviso */
+    .aviso {
+      max-width: 500px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border: 2px solid #0077cc;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
 
     .aviso .importante {
       color: red;
       font-weight: bold;
       font-size: 18px;
-      margin: 10px 0;
+      margin-bottom: 10px;
     }
 
-    .aviso button {
-      margin-top: 15px;
-      padding: 8px 16px;
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 10px;
+      text-align: left;
     }
   </style>
 </head>
 <body>
   <h1>Liceo Cristiano Lic. Joaquín Edgardo Gacía Lemus</h1>
 
-  <!-- Menú horizontal -->
-<div class="menu-bar">
-  <div class="menu-container">
-    <div onclick="toggleSubmenu()">Inicio ▼</div>
-    <div id="submenu" class="submenu">
-      <a href="liceo.html">Liceo</a>
-      <a href="deportes.html">Deportes</a>
-      <a href="anuncios.html">Anuncios</a>
-    </div>
-  </div>
-  <a href="vision.html">Visión</a>
-  <a href="mision.html">Misión</a>
-</div>
-
-  <!-- Cuadro de aviso debajo del menú -->
-  <div style="
-    max-width: 500px;
-    margin: 20px auto;
-    background-color: #ffffff;
-    border: 2px solid #0077cc;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  ">
-    <div style="color: red; font-weight: bold; font-size: 18px; margin-bottom: 10px;">
-      ¡Aviso importante!
-    </div>
-    <p style="margin: 0;">
-      El día jueves 10 de Julio, se llevarán a cabo los partidos correspondientes de:
-    </p>
-    <ul style="list-style: none; padding-left: 0; margin-top: 10px; text-align: left;">
-      <li>– Tercer ciclo</li>
-      <li>– Educación media</li>
-    </ul>
-    <p>Tomar en cuenta.</p>
+  <!-- Menú superior -->
+  <div class="menu-bar">
+    <div class="menu-button" id="menu-icon" onclick="toggleSubmenu()">☰</div>
+    <a href="index.html">Inicio</a>
+    <a href="vision.html">Visión</a>
+    <a href="mision.html">Misión</a>
   </div>
 
-  <!-- Submenú de Inicio -->
+  <!-- Submenú desplegable -->
   <div id="submenu" class="submenu">
     <a href="liceo.html">Liceo</a>
     <a href="deportes.html">Deportes</a>
     <a href="anuncios.html">Anuncios</a>
+  </div>
+
+  <!-- Aviso importante -->
+  <div class="aviso">
+    <div class="importante">¡Aviso importante!</div>
+    <p>
+      El día jueves 10 de Julio, se llevarán a cabo los partidos correspondientes de:
+    </p>
+    <ul>
+      <li>– Tercer ciclo</li>
+      <li>– Educación media</li>
+    </ul>
+    <p>Tomar en cuenta.</p>
   </div>
 
   <script>
@@ -171,17 +141,26 @@
 
     function toggleSubmenu() {
       submenuVisible = !submenuVisible;
-      document.getElementById("submenu").style.display = submenuVisible ? "flex" : "none";
+      const submenu = document.getElementById("submenu");
+      const icon = document.getElementById("menu-icon");
+      submenu.style.display = submenuVisible ? "flex" : "none";
+      icon.textContent = submenuVisible ? "▲" : "☰";
     }
 
-    // Mostrar aviso automáticamente
-    window.onload = function () {
-      document.getElementById("aviso").style.display = "block";
-    };
-
-    function cerrarAviso() {
-      document.getElementById("aviso").style.display = "none";
-    }
+    // Cierra el submenú si haces clic fuera de él
+    window.addEventListener("click", function (e) {
+      const submenu = document.getElementById("submenu");
+      const icon = document.getElementById("menu-icon");
+      if (
+        submenuVisible &&
+        !submenu.contains(e.target) &&
+        !icon.contains(e.target)
+      ) {
+        submenu.style.display = "none";
+        icon.textContent = "☰";
+        submenuVisible = false;
+      }
+    });
   </script>
 </body>
 </html>
