@@ -8,28 +8,97 @@
   <link rel="apple-touch-icon" href="icon.png" />
   <meta name="theme-color" content="#ffffff" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <style>/* mismos estilos aquí */</style>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 20px 0 10px 0;
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: center;
+      background-color: #0077cc;
+      padding: 10px 0;
+      border-top: 2px solid #005fa3;
+      border-bottom: 2px solid #005fa3;
+    }
+
+    .menu-button {
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      padding: 0 15px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .menu-bar a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-left: 1px solid #005fa3;
+    }
+
+    .submenu {
+      display: none;
+      flex-direction: column;
+      background-color: #e6f0ff;
+      position: absolute;
+      top: 90px;
+      left: 10px;
+      z-index: 1000;
+      width: 200px;
+      border: 1px solid #0077cc;
+      border-radius: 5px;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .submenu a {
+      padding: 15px;
+      text-decoration: none;
+      color: #0077cc;
+      font-weight: bold;
+      border-bottom: 1px solid #cce0ff;
+    }
+
+    .submenu a:last-child {
+      border-bottom: none;
+    }
+
+    .contenido {
+      padding: 40px 20px;
+    }
+  </style>
 </head>
 <body>
   <h1>Liceo Cristiano Lic. Joaquín Edgardo Gacía Lemus</h1>
 
   <div class="menu-bar">
-    <div class="menu-container">
-      <div onclick="toggleSubmenu()">Inicio ▼</div>
-      <div id="submenu" class="submenu">
-        <a href="liceo.html">Liceo</a>
-        <a href="deportes.html">Deportes</a>
-        <a href="anuncios.html">Anuncios</a>
-      </div>
-    </div>
+    <div class="menu-button" id="menu-icon" onclick="toggleSubmenu()">☰</div>
+    <a href="index.html">Inicio</a>
     <a href="vision.html">Visión</a>
     <a href="mision.html">Misión</a>
   </div>
 
+  <div id="submenu" class="submenu">
+    <a href="liceo.html">Liceo</a>
+    <a href="deportes.html">Deportes</a>
+    <a href="anuncios.html">Anuncios</a>
+  </div>
+
   <div class="contenido">
-    <h2>Información del Liceo</h2>
+    <h2>Acerca del Liceo</h2>
     <p>
-      Bienvenido a la sección del liceo. Aquí puedes compartir la historia, valores y misión institucional.
+      Esta sección contiene información general sobre el liceo: historia, valores institucionales y objetivos educativos.
     </p>
   </div>
 
@@ -37,8 +106,25 @@
     let submenuVisible = false;
     function toggleSubmenu() {
       submenuVisible = !submenuVisible;
-      document.getElementById("submenu").style.display = submenuVisible ? "flex" : "none";
+      const submenu = document.getElementById("submenu");
+      const icon = document.getElementById("menu-icon");
+      submenu.style.display = submenuVisible ? "flex" : "none";
+      icon.textContent = submenuVisible ? "▲" : "☰";
     }
+
+    window.addEventListener("click", function (e) {
+      const submenu = document.getElementById("submenu");
+      const icon = document.getElementById("menu-icon");
+      if (
+        submenuVisible &&
+        !submenu.contains(e.target) &&
+        !icon.contains(e.target)
+      ) {
+        submenu.style.display = "none";
+        icon.textContent = "☰";
+        submenuVisible = false;
+      }
+    });
   </script>
 </body>
 </html>
