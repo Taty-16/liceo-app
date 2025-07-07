@@ -4,12 +4,41 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Liceo</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon.png" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <style>/* mismos estilos aquí */</style>
 </head>
-<body style="font-family: sans-serif; text-align: center; padding-top: 100px;">
-  <h1>Sobre el Liceo</h1>
-  <p>
-    Aquí puedes colocar una descripción general del liceo, su historia, valores y logros institucionales.
-  </p>
-  <a href="index.html">← Volver al inicio</a>
+<body>
+  <h1>Liceo Cristiano Lic. Joaquín Edgardo Gacía Lemus</h1>
+
+  <div class="menu-bar">
+    <div class="menu-container">
+      <div onclick="toggleSubmenu()">Inicio ▼</div>
+      <div id="submenu" class="submenu">
+        <a href="liceo.html">Liceo</a>
+        <a href="deportes.html">Deportes</a>
+        <a href="anuncios.html">Anuncios</a>
+      </div>
+    </div>
+    <a href="vision.html">Visión</a>
+    <a href="mision.html">Misión</a>
+  </div>
+
+  <div class="contenido">
+    <h2>Información del Liceo</h2>
+    <p>
+      Bienvenido a la sección del liceo. Aquí puedes compartir la historia, valores y misión institucional.
+    </p>
+  </div>
+
+  <script>
+    let submenuVisible = false;
+    function toggleSubmenu() {
+      submenuVisible = !submenuVisible;
+      document.getElementById("submenu").style.display = submenuVisible ? "flex" : "none";
+    }
+  </script>
 </body>
 </html>
