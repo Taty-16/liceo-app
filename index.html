@@ -136,7 +136,20 @@
     <p>Tomar en cuenta.</p>
   </div>
 
-  <script>
+  <button onclick="logout()">Cerrar sesión</button>
+
+<script>
+  function logout() {
+    localStorage.removeItem("logueado");
+    window.location.href = "login.html";
+  }
+
+  // Redirige al login si no hay sesión guardada
+  if (localStorage.getItem("logueado") !== "true") {
+    window.location.href = "login.html";
+  }
+    
+    
     let submenuVisible = false;
 
     function toggleSubmenu() {
