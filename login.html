@@ -1,48 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Iniciar sesión</title>
   <style>
     body {
       font-family: sans-serif;
+      background: #f8f8f8;
+      margin: 0;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
-      background-color: #eef2f7;
-    }
-
-    h2 {
-      margin-bottom: 20px;
     }
 
     .login-box {
       background: white;
+      border: 2px solid #0077cc;
+      border-radius: 10px;
       padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 350px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
 
+    h2 {
+      color: #0077cc;
+      margin-bottom: 20px;
+    }
+
     input {
-      display: block;
-      margin: 10px auto;
+      width: 85%;
       padding: 10px;
-      width: 80%;
+      margin: 10px 0;
       font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .password-wrapper {
+      position: relative;
+      width: 85%;
+      margin: 0 auto;
+    }
+
+    .password-wrapper input {
+      width: 100%;
+      padding-right: 40px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: #0077cc;
     }
 
     button {
-      padding: 10px 20px;
       background-color: #0077cc;
       color: white;
       border: none;
-      border-radius: 5px;
+      padding: 10px 20px;
       font-size: 16px;
+      margin-top: 10px;
+      margin-right: 5px;
+      border-radius: 5px;
       cursor: pointer;
     }
 
@@ -50,31 +79,86 @@
       color: red;
       margin-top: 10px;
     }
+
+    .success {
+      color: green;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
   <div class="login-box">
-    <h2>Iniciar sesión</h2>
-    <input type="text" id="usuario" placeholder="Usuario">
-    <input type="password" id="contrasena" placeholder="Contraseña">
+    <h2>Iniciar sesión o registrarse</h2>
+    <input type="text" id="usuario" placeholder="Usuario" />
+
+    <div class="password-wrapper">
+      <input type="password" id="contrasena" placeholder="Contraseña" />
+      <button class="toggle-password" onclick="togglePassword()">👁️</button>
+    </div>
+
     <button onclick="login()">Entrar</button>
+    <button onclick="registrar()">Registrarse</button>
     <div id="mensaje" class="error"></div>
   </div>
 
   <script>
-    function login() {
-      const usuario = document.getElementById("usuario").value;
-      const contrasena = document.getElementById("contrasena").value;
+    function obtenerUsuarios() {
+      return JSON.parse(localStorage.getItem("usuarios") || "[]");
+    }
 
-      // Usuario y contraseña predefinidos
-      if (usuario === "admin" && contrasena === "1234") {
-        // Guardar sesión en localStorage
+    function guardarUsuarios(usuarios) {
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    }
+
+    function login() {
+      const usuario = document.getElementById("usuario").value.trim();
+      const contrasena = document.getElementById("contrasena").value.trim();
+      const mensaje = document.getElementById("mensaje");
+
+      const usuarios = obtenerUsuarios();
+      const encontrado = usuarios.find(
+        u => u.usuario === usuario && u.contrasena === contrasena
+      );
+
+      if (encontrado) {
         localStorage.setItem("logueado", "true");
         window.location.href = "index.html";
       } else {
-        document.getElementById("mensaje").textContent = "Usuario o contraseña incorrectos.";
+        mensaje.className = "error";
+        mensaje.textContent = "Usuario o contraseña incorrectos.";
       }
+    }
+
+    function registrar() {
+      const usuario = document.getElementById("usuario").value.trim();
+      const contrasena = document.getElementById("contrasena").value.trim();
+      const mensaje = document.getElementById("mensaje");
+
+      if (!usuario || !contrasena) {
+        mensaje.className = "error";
+        mensaje.textContent = "Ingresa usuario y contraseña.";
+        return;
+      }
+
+      const usuarios = obtenerUsuarios();
+
+      if (usuarios.find(u => u.usuario === usuario)) {
+        mensaje.className = "error";
+        mensaje.textContent = "Ese usuario ya existe.";
+        return;
+      }
+
+      usuarios.push({ usuario, contrasena });
+      guardarUsuarios(usuarios);
+
+      mensaje.className = "success";
+      mensaje.textContent = "Usuario creado. Ahora puedes iniciar sesión.";
+    }
+
+    function togglePassword() {
+      const passInput = document.getElementById("contrasena");
+      passInput.type = passInput.type === "password" ? "text" : "password";
     }
   </script>
 
