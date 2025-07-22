@@ -110,7 +110,7 @@
 
     <div class="password-wrapper">
       <input type="password" id="contrasena" placeholder="Contraseña" />
-      <img id="toggle-icon" src="eye-open.png" alt="Mostrar/Ocultar" onclick="togglePassword()" />
+      <img id="toggle-icon" src="eye-closed.png" alt="Mostrar/Ocultar" onclick="togglePassword()" />
     </div>
 
     <div class="botones">
@@ -181,10 +181,10 @@
 
       if (input.type === "password") {
         input.type = "text";
-        icon.src = "eye-closed.png";
+        icon.src = "eye-open.png";
       } else {
         input.type = "password";
-        icon.src = "eye-open.png";
+        icon.src = "eye-closed.png";
       }
     }
 
