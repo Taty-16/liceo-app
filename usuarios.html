@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Usuarios Registrados</title>
-  <link rel="stylesheet" href="estilos.css" />
   <style>
     body {
       font-family: sans-serif;
@@ -22,14 +21,15 @@
       font-weight: bold;
     }
 
-    /* Menú horizontal con botón ☰ incluido */
+    /* Menú superior */
     .menu-principal {
       display: flex;
       align-items: center;
+      justify-content: space-around;
       background-color: #e0d0f8;
       padding: 10px 0;
-      font-weight: bold;
-      justify-content: space-around;
+      position: relative;
+      z-index: 2;
     }
 
     .menu-principal a {
@@ -44,19 +44,15 @@
       background-color: #d3bff4;
     }
 
-.menu-toggle {
-  position: fixed;
-  top: 12px;
-  left: 12px;
-  z-index: 1001; /* más alto que el menú */
-  background-color: #a275e3;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+    .menu-toggle {
+      background-color: #a275e3;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      margin-left: 10px;
+    }
 
     /* Submenú lateral */
     .submenu-lateral {
@@ -69,11 +65,11 @@
       background-color: white;
       border-right: 3px solid #a275e3;
       box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-      padding-top: 60px;
+      padding-top: 80px;
       display: flex;
       flex-direction: column;
       transition: left 0.3s ease;
-      z-index: 999;
+      z-index: 1;
     }
 
     .submenu-lateral a {
@@ -131,7 +127,7 @@
 </head>
 <body>
 
-  <!-- Submenú lateral oculto -->
+  <!-- Submenú lateral -->
   <div id="submenu" class="submenu-lateral">
     <a href="liceo.html">Liceo</a>
     <a href="deportes.html">Deportes</a>
@@ -144,7 +140,7 @@
     Liceo Cristiano Lic. Joaquín Edgardo García Lemus
   </header>
 
-  <!-- Menú horizontal con botón ☰ -->
+  <!-- Menú horizontal -->
   <nav class="menu-principal">
     <div class="menu-toggle" onclick="toggleSubmenu()">☰</div>
     <a href="index.html">Inicio</a>
@@ -160,12 +156,12 @@
   <button onclick="logout()" class="logout-btn">Cerrar sesión</button>
 
   <script>
-    // Solo permite acceso si hay sesión iniciada
+    // Proteger acceso
     if (localStorage.getItem("logueado") !== "true") {
       window.location.href = "login.html";
     }
 
-    // Mostrar usuarios registrados
+    // Mostrar usuarios
     const lista = document.getElementById("lista_usuarios");
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
@@ -185,7 +181,7 @@
       window.location.href = "login.html";
     }
 
-    // Submenú lateral
+    // Control del submenú
     let menuAbierto = false;
 
     function toggleSubmenu() {
@@ -194,7 +190,7 @@
       menuAbierto = !menuAbierto;
     }
 
-    // Cierra menú al hacer clic fuera
+    // Cerrar menú si haces clic fuera
     window.addEventListener("click", function (e) {
       const submenu = document.getElementById("submenu");
       const toggle = document.querySelector(".menu-toggle");
