@@ -21,15 +21,12 @@
       font-weight: bold;
     }
 
-    /* Menú superior */
     .menu-principal {
       display: flex;
-      align-items: center;
       justify-content: space-around;
+      align-items: center;
       background-color: #e0d0f8;
       padding: 10px 0;
-      position: relative;
-      z-index: 2;
     }
 
     .menu-principal a {
@@ -45,16 +42,24 @@
     }
 
     .menu-toggle {
+      position: fixed;
+      top: 85px;
+      left: 10px;
       background-color: #a275e3;
       color: white;
-      padding: 10px;
+      padding: 10px 12px;
       border-radius: 5px;
-      cursor: pointer;
       font-size: 18px;
-      margin-left: 10px;
+      z-index: 3;
+      cursor: pointer;
+      transition: left 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    /* Submenú lateral */
+    .menu-toggle.open {
+      left: 65%;
+    }
+
     .submenu-lateral {
       position: fixed;
       top: 0;
@@ -65,11 +70,11 @@
       background-color: white;
       border-right: 3px solid #a275e3;
       box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-      padding-top: 60px;
+      padding-top: 100px;
       display: flex;
       flex-direction: column;
       transition: left 0.3s ease;
-      z-index: 1;
+      z-index: 2;
     }
 
     .submenu-lateral a {
@@ -82,19 +87,6 @@
     .submenu-lateral a:hover {
       background-color: #f0e8ff;
       color: #a275e3;
-    }
-
-    /* Botón ✖ dentro del menú lateral */
-    .submenu-close {
-      background-color: #a275e3;
-      color: white;
-      font-size: 18px;
-      padding: 10px 15px;
-      border-radius: 5px;
-      width: fit-content;
-      margin: 10px auto 20px auto;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     h1 {
@@ -140,9 +132,11 @@
 </head>
 <body>
 
+  <!-- Botón ☰ que se desplaza -->
+  <div id="menu-toggle" class="menu-toggle" onclick="toggleSubmenu()">☰</div>
+
   <!-- Submenú lateral -->
   <div id="submenu" class="submenu-lateral">
-    <div class="submenu-close" onclick="toggleSubmenu()">✖</div>
     <a href="liceo.html">Liceo</a>
     <a href="deportes.html">Deportes</a>
     <a href="anuncios.html">Anuncios</a>
@@ -154,9 +148,8 @@
     Liceo Cristiano Lic. Joaquín Edgardo García Lemus
   </header>
 
-  <!-- Menú horizontal -->
+  <!-- Menú superior -->
   <nav class="menu-principal">
-    <div class="menu-toggle" onclick="toggleSubmenu()">☰</div>
     <a href="index.html">Inicio</a>
     <a href="vision.html">Visión</a>
     <a href="mision.html">Misión</a>
@@ -170,7 +163,7 @@
   <button onclick="logout()" class="logout-btn">Cerrar sesión</button>
 
   <script>
-    // Proteger acceso
+    // Protege acceso
     if (localStorage.getItem("logueado") !== "true") {
       window.location.href = "login.html";
     }
@@ -195,19 +188,22 @@
       window.location.href = "login.html";
     }
 
-    // Control del submenú
+    // Submenú
     let menuAbierto = false;
 
     function toggleSubmenu() {
       const submenu = document.getElementById("submenu");
+      const toggleBtn = document.getElementById("menu-toggle");
+
       submenu.style.left = menuAbierto ? "-60%" : "0";
+      toggleBtn.classList.toggle("open");
       menuAbierto = !menuAbierto;
     }
 
-    // Cerrar menú al hacer clic fuera
+    // Cerrar si haces clic fuera
     window.addEventListener("click", function (e) {
       const submenu = document.getElementById("submenu");
-      const toggle = document.querySelector(".menu-toggle");
+      const toggle = document.getElementById("menu-toggle");
 
       if (
         menuAbierto &&
@@ -215,6 +211,7 @@
         !toggle.contains(e.target)
       ) {
         submenu.style.left = "-60%";
+        toggle.classList.remove("open");
         menuAbierto = false;
       }
     });
