@@ -128,12 +128,15 @@
 <body>
 
   <!-- Botón para abrir el submenú lateral -->
-<nav class="menu-principal">
-  <div class="menu-toggle" onclick="toggleSubmenu()">☰</div>
-  <a href="index.html">Inicio</a>
-  <a href="vision.html">Visión</a>
-  <a href="mision.html">Misión</a>
-</nav>
+  <div class="menu-toggle" onclick="toggleSubmenu()">☰ Menú</div>
+
+  <!-- Submenú lateral -->
+  <div id="submenu" class="submenu-lateral">
+    <a href="liceo.html">Liceo</a>
+    <a href="deportes.html">Deportes</a>
+    <a href="anuncios.html">Anuncios</a>
+    <a href="usuarios.html">Usuarios</a>
+  </div>
 
   <!-- Encabezado principal -->
   <header>
@@ -141,11 +144,12 @@
   </header>
 
   <!-- Menú superior horizontal -->
-  <nav class="menu-principal">
-    <a href="index.html">Inicio</a>
-    <a href="vision.html">Visión</a>
-    <a href="mision.html">Misión</a>
-  </nav>
+<nav class="menu-principal">
+  <div class="menu-toggle" onclick="toggleSubmenu()">☰</div>
+  <a href="index.html">Inicio</a>
+  <a href="vision.html">Visión</a>
+  <a href="mision.html">Misión</a>
+</nav>
 
   <!-- Contenido -->
   <h1>Usuarios Registrados</h1>
