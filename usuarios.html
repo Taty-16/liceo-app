@@ -21,40 +21,40 @@
       font-size: 18px;
       font-weight: bold;
     }
-    
-.menu-principal {
-  display: flex;
-  align-items: center;
-  background-color: #e0d0f8;
-  padding: 10px 0;
-  font-weight: bold;
-  justify-content: space-around;
-  position: relative;
-}
 
-.menu-principal a {
-  color: #5c3ea8;
-  text-decoration: none;
-  padding: 10px;
-  flex: 1;
-  text-align: center;
-}
+    /* Menú horizontal con botón ☰ incluido */
+    .menu-principal {
+      display: flex;
+      align-items: center;
+      background-color: #e0d0f8;
+      padding: 10px 0;
+      font-weight: bold;
+      justify-content: space-around;
+    }
 
-.menu-principal a:hover {
-  background-color: #d3bff4;
-}
+    .menu-principal a {
+      color: #5c3ea8;
+      text-decoration: none;
+      padding: 10px;
+      flex: 1;
+      text-align: center;
+    }
 
-/* El botón ☰ Menú en línea con los demás */
-.menu-toggle {
-  background-color: #a275e3;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 0 10px;
-  font-size: 18px;
-}
+    .menu-principal a:hover {
+      background-color: #d3bff4;
+    }
 
+    .menu-toggle {
+      background-color: #a275e3;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0 10px;
+      font-size: 18px;
+    }
+
+    /* Submenú lateral */
     .submenu-lateral {
       position: fixed;
       top: 0;
@@ -64,7 +64,7 @@
       height: 100%;
       background-color: white;
       border-right: 3px solid #a275e3;
-      box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
       padding-top: 60px;
       display: flex;
       flex-direction: column;
@@ -127,10 +127,7 @@
 </head>
 <body>
 
-  <!-- Botón para abrir el submenú lateral -->
-  <div class="menu-toggle" onclick="toggleSubmenu()">☰ Menú</div>
-
-  <!-- Submenú lateral -->
+  <!-- Submenú lateral oculto -->
   <div id="submenu" class="submenu-lateral">
     <a href="liceo.html">Liceo</a>
     <a href="deportes.html">Deportes</a>
@@ -138,18 +135,18 @@
     <a href="usuarios.html">Usuarios</a>
   </div>
 
-  <!-- Encabezado principal -->
+  <!-- Encabezado -->
   <header>
     Liceo Cristiano Lic. Joaquín Edgardo García Lemus
   </header>
 
-  <!-- Menú superior horizontal -->
-<nav class="menu-principal">
-  <div class="menu-toggle" onclick="toggleSubmenu()">☰</div>
-  <a href="index.html">Inicio</a>
-  <a href="vision.html">Visión</a>
-  <a href="mision.html">Misión</a>
-</nav>
+  <!-- Menú horizontal con botón ☰ -->
+  <nav class="menu-principal">
+    <div class="menu-toggle" onclick="toggleSubmenu()">☰</div>
+    <a href="index.html">Inicio</a>
+    <a href="vision.html">Visión</a>
+    <a href="mision.html">Misión</a>
+  </nav>
 
   <!-- Contenido -->
   <h1>Usuarios Registrados</h1>
@@ -159,12 +156,12 @@
   <button onclick="logout()" class="logout-btn">Cerrar sesión</button>
 
   <script>
-    // Protección de acceso
+    // Solo permite acceso si hay sesión iniciada
     if (localStorage.getItem("logueado") !== "true") {
       window.location.href = "login.html";
     }
 
-    // Mostrar usuarios
+    // Mostrar usuarios registrados
     const lista = document.getElementById("lista_usuarios");
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
@@ -178,12 +175,13 @@
       });
     }
 
+    // Cerrar sesión
     function logout() {
       localStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
 
-    // Submenú desplegable lateral
+    // Submenú lateral
     let menuAbierto = false;
 
     function toggleSubmenu() {
@@ -192,7 +190,7 @@
       menuAbierto = !menuAbierto;
     }
 
-    // Cierra el submenú al hacer clic fuera
+    // Cierra menú al hacer clic fuera
     window.addEventListener("click", function (e) {
       const submenu = document.getElementById("submenu");
       const toggle = document.querySelector(".menu-toggle");
