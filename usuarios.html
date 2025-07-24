@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usuarios Registrados</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Usuarios</title>
+  <link rel="icon" href="icon.png" />
   <style>
     body {
       font-family: sans-serif;
@@ -17,7 +18,6 @@
       color: white;
       padding: 15px;
       text-align: center;
-      font-size: 18px;
       font-weight: bold;
     }
 
@@ -89,58 +89,51 @@
       color: #a275e3;
     }
 
-    h1 {
-      text-align: center;
-      color: #5c3ea8;
-      margin-top: 30px;
+    .submenu-lateral a.logout {
+      color: red;
+      margin-top: auto;
+      border-top: 1px solid #ccc;
     }
 
-    ul {
-      max-width: 400px;
-      margin: 20px auto;
+    main {
+      max-width: 600px;
+      margin: 30px auto;
       background: white;
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #5c3ea8;
+    }
+
+    ul {
       list-style: none;
+      padding: 0;
     }
 
     li {
+      background: #eee;
+      margin: 8px 0;
       padding: 10px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    li:last-child {
-      border-bottom: none;
-    }
-
-    .logout-btn {
-      display: block;
-      margin: 30px auto;
-      padding: 10px 20px;
-      background: #a275e3;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .logout-btn:hover {
-      background: #8c5bd2;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Botón ☰ que se desplaza -->
+  <!-- Botón ☰ -->
   <div id="menu-toggle" class="menu-toggle" onclick="toggleSubmenu()">☰</div>
 
-  <!-- Submenú lateral -->
+  <!-- Submenú lateral con cerrar sesión -->
   <div id="submenu" class="submenu-lateral">
     <a href="liceo.html">Liceo</a>
     <a href="deportes.html">Deportes</a>
     <a href="anuncios.html">Anuncios</a>
     <a href="usuarios.html">Usuarios</a>
+    <a href="#" class="logout" onclick="logout()">🔒 Cerrar sesión</a>
   </div>
 
   <!-- Encabezado -->
@@ -148,7 +141,7 @@
     Liceo Cristiano Lic. Joaquín Edgardo García Lemus
   </header>
 
-  <!-- Menú superior -->
+  <!-- Menú principal -->
   <nav class="menu-principal">
     <a href="index.html">Inicio</a>
     <a href="vision.html">Visión</a>
@@ -156,41 +149,33 @@
   </nav>
 
   <!-- Contenido -->
-  <h1>Usuarios Registrados</h1>
-
-  <ul id="lista_usuarios"></ul>
-
-  <button onclick="logout()" class="logout-btn">Cerrar sesión</button>
+  <main>
+    <h2>Usuarios Registrados</h2>
+    <ul id="lista_usuarios"></ul>
+  </main>
 
   <script>
-    // Protege acceso
+    // Autenticación
     if (localStorage.getItem("logueado") !== "true") {
       window.location.href = "login.html";
     }
 
-    // Mostrar usuarios
+    // Mostrar usuarios desde localStorage
     const lista = document.getElementById("lista_usuarios");
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
     if (usuarios.length === 0) {
       lista.innerHTML = "<li>No hay usuarios registrados.</li>";
     } else {
-      usuarios.forEach(u => {
+      usuarios.forEach(user => {
         const li = document.createElement("li");
-        li.textContent = `👤 ${u.usuario}`;
+        li.textContent = "👤 " + user.usuario;
         lista.appendChild(li);
       });
     }
 
-    // Cerrar sesión
-    function logout() {
-      localStorage.removeItem("logueado");
-      window.location.href = "login.html";
-    }
-
     // Submenú
     let menuAbierto = false;
-
     function toggleSubmenu() {
       const submenu = document.getElementById("submenu");
       const toggleBtn = document.getElementById("menu-toggle");
@@ -200,7 +185,6 @@
       menuAbierto = !menuAbierto;
     }
 
-    // Cerrar si haces clic fuera
     window.addEventListener("click", function (e) {
       const submenu = document.getElementById("submenu");
       const toggle = document.getElementById("menu-toggle");
@@ -215,6 +199,12 @@
         menuAbierto = false;
       }
     });
+
+    // Cerrar sesión
+    function logout() {
+      localStorage.removeItem("logueado");
+      window.location.href = "login.html";
+    }
   </script>
 
 </body>
