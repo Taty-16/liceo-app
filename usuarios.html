@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usuarios registrados</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f0fa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #a275e3;
+      text-align: center;
+    }
+
+    ul {
+      max-width: 400px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      list-style: none;
+    }
+
+    li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    li:last-child {
+      border-bottom: none;
+    }
+
+    .logout-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #a275e3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background: #8c5bd2;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Usuarios Registrados</h1>
+
+  <ul id="lista_usuarios">
+    <!-- Aquí se insertarán los usuarios -->
+  </ul>
+
+  <button onclick="logout()" class="logout-btn">Cerrar sesión</button>
+
+  <script>
+    // Proteger acceso
+    if (localStorage.getItem("logueado") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    const lista = document.getElementById("lista_usuarios");
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    if (usuarios.length === 0) {
+      lista.innerHTML = "<li>No hay usuarios registrados.</li>";
+    } else {
+      usuarios.forEach(u => {
+        const li = document.createElement("li");
+        li.textContent = `👤 ${u.usuario}`;
+        lista.appendChild(li);
+      });
+    }
+
+    function logout() {
+      localStorage.removeItem("logueado");
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+</html>
