@@ -21,39 +21,39 @@
       font-size: 18px;
       font-weight: bold;
     }
+    
+.menu-principal {
+  display: flex;
+  align-items: center;
+  background-color: #e0d0f8;
+  padding: 10px 0;
+  font-weight: bold;
+  justify-content: space-around;
+  position: relative;
+}
 
-    .menu-principal {
-      display: flex;
-      justify-content: space-around;
-      background-color: #e0d0f8;
-      padding: 10px 0;
-      font-weight: bold;
-    }
+.menu-principal a {
+  color: #5c3ea8;
+  text-decoration: none;
+  padding: 10px;
+  flex: 1;
+  text-align: center;
+}
 
-    .menu-principal a {
-      color: #5c3ea8;
-      text-decoration: none;
-      padding: 10px;
-      flex: 1;
-      text-align: center;
-    }
+.menu-principal a:hover {
+  background-color: #d3bff4;
+}
 
-    .menu-principal a:hover {
-      background-color: #d3bff4;
-    }
-
-    .menu-toggle {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background-color: #a275e3;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
+/* El botón ☰ Menú en línea con los demás */
+.menu-toggle {
+  background-color: #a275e3;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+  font-size: 18px;
+}
 
     .submenu-lateral {
       position: fixed;
@@ -128,15 +128,12 @@
 <body>
 
   <!-- Botón para abrir el submenú lateral -->
-  <div class="menu-toggle" onclick="toggleSubmenu()">☰ Menú</div>
-
-  <!-- Submenú lateral -->
-  <div id="submenu" class="submenu-lateral">
-    <a href="liceo.html">Liceo</a>
-    <a href="deportes.html">Deportes</a>
-    <a href="anuncios.html">Anuncios</a>
-    <a href="usuarios.html">Usuarios</a>
-  </div>
+<nav class="menu-principal">
+  <div class="menu-toggle" onclick="toggleSubmenu()">☰</div>
+  <a href="index.html">Inicio</a>
+  <a href="vision.html">Visión</a>
+  <a href="mision.html">Misión</a>
+</nav>
 
   <!-- Encabezado principal -->
   <header>
