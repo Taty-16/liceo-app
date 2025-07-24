@@ -3,19 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usuarios registrados</title>
+  <title>Usuarios Registrados</title>
   <link rel="stylesheet" href="estilos.css" />
   <style>
     body {
       font-family: sans-serif;
       background: #f4f0fa;
       margin: 0;
-      padding: 20px;
+      padding: 0;
+    }
+
+    header {
+      background-color: #a275e3;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .menu-principal {
+      display: flex;
+      justify-content: space-around;
+      background-color: #e0d0f8;
+      padding: 10px 0;
+      font-weight: bold;
+    }
+
+    .menu-principal a {
+      color: #5c3ea8;
+      text-decoration: none;
+      padding: 10px;
+      flex: 1;
+      text-align: center;
+    }
+
+    .menu-principal a:hover {
+      background-color: #d3bff4;
+    }
+
+    .menu-toggle {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: #a275e3;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .submenu-lateral {
+      position: fixed;
+      top: 0;
+      left: -60%;
+      width: 60%;
+      max-width: 300px;
+      height: 100%;
+      background-color: white;
+      border-right: 3px solid #a275e3;
+      box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+      padding-top: 60px;
+      display: flex;
+      flex-direction: column;
+      transition: left 0.3s ease;
+      z-index: 999;
+    }
+
+    .submenu-lateral a {
+      padding: 15px 20px;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #eee;
+    }
+
+    .submenu-lateral a:hover {
+      background-color: #f0e8ff;
+      color: #a275e3;
     }
 
     h1 {
-      color: #a275e3;
       text-align: center;
+      color: #5c3ea8;
+      margin-top: 30px;
     }
 
     ul {
@@ -39,7 +111,7 @@
 
     .logout-btn {
       display: block;
-      margin: 20px auto;
+      margin: 30px auto;
       padding: 10px 20px;
       background: #a275e3;
       color: white;
@@ -55,20 +127,43 @@
 </head>
 <body>
 
+  <!-- Botón para abrir el submenú lateral -->
+  <div class="menu-toggle" onclick="toggleSubmenu()">☰ Menú</div>
+
+  <!-- Submenú lateral -->
+  <div id="submenu" class="submenu-lateral">
+    <a href="liceo.html">Liceo</a>
+    <a href="deportes.html">Deportes</a>
+    <a href="anuncios.html">Anuncios</a>
+    <a href="usuarios.html">Usuarios</a>
+  </div>
+
+  <!-- Encabezado principal -->
+  <header>
+    Liceo Cristiano Lic. Joaquín Edgardo García Lemus
+  </header>
+
+  <!-- Menú superior horizontal -->
+  <nav class="menu-principal">
+    <a href="index.html">Inicio</a>
+    <a href="vision.html">Visión</a>
+    <a href="mision.html">Misión</a>
+  </nav>
+
+  <!-- Contenido -->
   <h1>Usuarios Registrados</h1>
 
-  <ul id="lista_usuarios">
-    <!-- Aquí se insertarán los usuarios -->
-  </ul>
+  <ul id="lista_usuarios"></ul>
 
   <button onclick="logout()" class="logout-btn">Cerrar sesión</button>
 
   <script>
-    // Proteger acceso
+    // Protección de acceso
     if (localStorage.getItem("logueado") !== "true") {
       window.location.href = "login.html";
     }
 
+    // Mostrar usuarios
     const lista = document.getElementById("lista_usuarios");
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
@@ -86,6 +181,30 @@
       localStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
+
+    // Submenú desplegable lateral
+    let menuAbierto = false;
+
+    function toggleSubmenu() {
+      const submenu = document.getElementById("submenu");
+      submenu.style.left = menuAbierto ? "-60%" : "0";
+      menuAbierto = !menuAbierto;
+    }
+
+    // Cierra el submenú al hacer clic fuera
+    window.addEventListener("click", function (e) {
+      const submenu = document.getElementById("submenu");
+      const toggle = document.querySelector(".menu-toggle");
+
+      if (
+        menuAbierto &&
+        !submenu.contains(e.target) &&
+        !toggle.contains(e.target)
+      ) {
+        submenu.style.left = "-60%";
+        menuAbierto = false;
+      }
+    });
   </script>
 
 </body>
