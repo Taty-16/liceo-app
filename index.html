@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Inicio</title>
+  <title>Liceo Cristiano</title>
   <link rel="icon" href="icon.png" />
   <style>
     body {
@@ -89,19 +89,40 @@
       color: #a275e3;
     }
 
-    .anuncio {
-      background: white;
+    .cerrar-sesion {
+      color: red;
+      font-weight: bold;
+      margin-top: auto;
+      border-top: 1px solid #ccc;
+    }
+
+    main {
+      max-width: 700px;
       margin: 30px auto;
+      background: white;
       padding: 20px;
-      max-width: 500px;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #5c3ea8;
       text-align: center;
     }
 
-    .anuncio h2 {
+    .aviso {
+      margin-top: 20px;
+      padding: 15px;
+      border: 2px solid #a275e3;
+      border-radius: 10px;
+      background-color: #fff3ff;
+    }
+
+    .aviso strong {
+      display: block;
       color: red;
-      margin-bottom: 10px;
+      text-align: center;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -111,13 +132,13 @@
   <div id="menu-toggle" class="menu-toggle" onclick="toggleSubmenu()">☰</div>
 
   <!-- Submenú lateral -->
-<div id="submenu" class="submenu-lateral">
-  <a href="liceo.html">Liceo</a>
-  <a href="deportes.html">Deportes</a>
-  <a href="anuncios.html">Anuncios</a>
-  <a href="usuarios.html">Usuarios</a>
-  <a href="#" onclick="logout()" style="color: red; margin-top: auto; padding: 15px 20px;">🔒 Cerrar sesión</a>
-</div>
+  <div id="submenu" class="submenu-lateral">
+    <a href="liceo.html">Liceo</a>
+    <a href="deportes.html">Deportes</a>
+    <a href="anuncios.html">Anuncios</a>
+    <a href="usuarios.html">Usuarios</a>
+    <a href="#" class="cerrar-sesion" onclick="logout()">🔒 Cerrar sesión</a>
+  </div>
 
   <!-- Encabezado -->
   <header>
@@ -133,24 +154,29 @@
 
   <!-- Contenido -->
   <main>
-    <div class="anuncio">
-      <h2>¡Aviso importante!</h2>
-      <p>El día jueves 10 de Julio, se llevarán a cabo los partidos correspondientes de:</p>
-      <ul style="text-align: left;">
-        <li>Tercer ciclo</li>
-        <li>Educación media</li>
-      </ul>
-      <strong>Tomar en cuenta</strong>
+    <h2>Bienvenidos</h2>
+
+    <div class="aviso">
+      Liceo Cristiano Lic. Joaquín Edgardo García Lemus  
+      <strong>¡Aviso importante!</strong>
+      El día jueves 10 de Julio, se llevarán a cabo los partidos correspondientes de:<br>
+      - Tercer ciclo<br>
+      - Educación media<br>
+      <br>Tomar en cuenta
     </div>
   </main>
 
   <script>
-    let menuAbierto = false;
+    // Verificar sesión
+    if (localStorage.getItem("logueado") !== "true") {
+      window.location.href = "login.html";
+    }
 
+    // Mostrar/Ocultar submenú
+    let menuAbierto = false;
     function toggleSubmenu() {
       const submenu = document.getElementById("submenu");
       const toggleBtn = document.getElementById("menu-toggle");
-
       submenu.style.left = menuAbierto ? "-60%" : "0";
       toggleBtn.classList.toggle("open");
       menuAbierto = !menuAbierto;
@@ -159,17 +185,18 @@
     window.addEventListener("click", function (e) {
       const submenu = document.getElementById("submenu");
       const toggle = document.getElementById("menu-toggle");
-
-      if (
-        menuAbierto &&
-        !submenu.contains(e.target) &&
-        !toggle.contains(e.target)
-      ) {
+      if (menuAbierto && !submenu.contains(e.target) && !toggle.contains(e.target)) {
         submenu.style.left = "-60%";
         toggle.classList.remove("open");
         menuAbierto = false;
       }
     });
+
+    // Cerrar sesión
+    function logout() {
+      localStorage.removeItem("logueado");
+      window.location.href = "login.html";
+    }
   </script>
 
 </body>
