@@ -73,27 +73,33 @@
       padding-top: 100px;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       transition: left 0.3s ease;
       z-index: 2;
     }
 
-    .submenu-lateral a {
+    .submenu-links a {
       padding: 15px 20px;
       text-decoration: none;
       color: #333;
       border-bottom: 1px solid #eee;
+      display: block;
     }
 
-    .submenu-lateral a:hover {
+    .submenu-links a:hover {
       background-color: #f0e8ff;
       color: #a275e3;
     }
 
-    .cerrar-sesion {
+    .cerrar-sesion-contenedor {
+      border-top: 1px solid #ccc;
+      padding: 15px 20px;
+    }
+
+    .cerrar-sesion-contenedor a {
       color: red;
       font-weight: bold;
-      margin-top: auto;
-      border-top: 1px solid #ccc;
+      text-decoration: none;
     }
 
     main {
@@ -133,11 +139,15 @@
 
   <!-- Submenú lateral -->
   <div id="submenu" class="submenu-lateral">
-    <a href="liceo.html">Liceo</a>
-    <a href="deportes.html">Deportes</a>
-    <a href="anuncios.html">Anuncios</a>
-    <a href="usuarios.html">Usuarios</a>
-    <a href="#" class="cerrar-sesion" onclick="logout()">🔒 Cerrar sesión</a>
+    <nav class="submenu-links">
+      <a href="liceo.html">Liceo</a>
+      <a href="deportes.html">Deportes</a>
+      <a href="anuncios.html">Anuncios</a>
+      <a href="usuarios.html">Usuarios</a>
+    </nav>
+    <div class="cerrar-sesion-contenedor">
+      <a href="#" onclick="logout()">🔒 Cerrar sesión</a>
+    </div>
   </div>
 
   <!-- Encabezado -->
@@ -167,7 +177,7 @@
   </main>
 
   <script>
-    // Verificar sesión
+    // Protección por login
     if (localStorage.getItem("logueado") !== "true") {
       window.location.href = "login.html";
     }
@@ -192,7 +202,7 @@
       }
     });
 
-    // Cerrar sesión
+    // Función de cierre de sesión
     function logout() {
       localStorage.removeItem("logueado");
       window.location.href = "login.html";
