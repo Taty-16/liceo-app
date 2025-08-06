@@ -73,12 +73,11 @@
       padding-top: 100px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       transition: left 0.3s ease;
       z-index: 2;
     }
 
-    .submenu-links a {
+    .submenu-lateral a {
       padding: 15px 20px;
       text-decoration: none;
       color: #333;
@@ -86,20 +85,14 @@
       display: block;
     }
 
-    .submenu-links a:hover {
+    .submenu-lateral a:hover {
       background-color: #f0e8ff;
       color: #a275e3;
     }
 
-    .cerrar-sesion-contenedor {
-      border-top: 1px solid #ccc;
-      padding: 15px 20px;
-    }
-
-    .cerrar-sesion-contenedor a {
+    .cerrar-sesion {
       color: red;
       font-weight: bold;
-      text-decoration: none;
     }
 
     main {
@@ -139,15 +132,11 @@
 
   <!-- Submenú lateral -->
   <div id="submenu" class="submenu-lateral">
-    <nav class="submenu-links">
-      <a href="liceo.html">Liceo</a>
-      <a href="deportes.html">Deportes</a>
-      <a href="anuncios.html">Anuncios</a>
-      <a href="usuarios.html">Usuarios</a>
-    </nav>
-    <div class="cerrar-sesion-contenedor">
-      <a href="#" onclick="logout()">🔒 Cerrar sesión</a>
-    </div>
+    <a href="liceo.html">Liceo</a>
+    <a href="deportes.html">Deportes</a>
+    <a href="anuncios.html">Anuncios</a>
+    <a href="usuarios.html">Usuarios</a>
+    <a href="#" class="cerrar-sesion" onclick="logout()">🔒 Cerrar sesión</a>
   </div>
 
   <!-- Encabezado -->
